@@ -34,4 +34,12 @@ public class PlayList {
 		else
 			return tracks[trackNum - 1];
 	}
+
+	/**
+	 * @return The size of the track list
+	 */
+	public int size() {
+		return tracks.length;
+	}
+
 }
