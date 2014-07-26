@@ -1,10 +1,11 @@
-/* James Moretti
- * July 26, 2014
+/**
+ * Wrapper class for the UNIX text to speech functionality.
  *
- * Speaker.java - Wrapper class for the UNIX text to speech functionality.
+ * @author James Moretti
+ * @since July 26, 2014
  */
-
 public static class Speaker {
+
 	/**
 	* Makes a system call to play the given text using espeak
 	*
