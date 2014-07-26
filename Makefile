@@ -3,7 +3,13 @@ BD=bin/
 CC=javac -d $(BD) -classpath $(SD)
 
 
-all: $(BD)Speaker.class $(BD)PlayList.class $(BD)Player.class $(BD)InputHandler.class
+all: manifest $(BD)Speaker.class $(BD)PlayList.class $(BD)Player.class $(BD)InputHandler.class
+
+jar: all
+	cd bin; jar cfm ../CarPlayer.jar manifest.txt .
+
+manifest: $(BD)manifest.txt
+	echo "Main-Class: InputHandler" > bin/manifest.txt
 
 $(BD)Speaker.class: $(SD)Speaker.java
 	$(CC) $(SD)Speaker.java
