@@ -9,6 +9,11 @@ import java.io.File;
 
 public class PlayList {
 	private String[] tracks;
+	private String listPath;
+
+	public PlayList(int listNum) {
+		loadPlayList(listNum);
+	}
 
 	/**
 	 * Populates internal track name list using file names in the given
@@ -17,8 +22,9 @@ public class PlayList {
 	 * @param	listNum	Play list to load in
 	 */
 	public void loadPlayList(int listNum) {
-		File f = new File("./tracks/" + listNum);
+		File f = new File("tracks/" + listNum);
 		tracks = f.list();
+		listPath = f.getAbsolutePath() + "/";
 	}
 
 	/**
@@ -28,7 +34,7 @@ public class PlayList {
 	 * @return	Track name that corresponds to trackNum.
 	 *			Gets last track if trackNum is out of range.
 	 */
-	public String getTrack(int trackNum) {
+	public String getTrackName(int trackNum) {
 		if (trackNum > tracks.length)
 			return tracks[tracks.length - 1];
 		else
@@ -42,4 +48,10 @@ public class PlayList {
 		return tracks.length;
 	}
 
+	/**
+	 * #return The path to the play list
+	 */
+	public String getListPath() {
+		return listPath;
+	}
 }
