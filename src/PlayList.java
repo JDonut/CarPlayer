@@ -24,7 +24,7 @@ public class PlayList {
 	public void loadPlayList(int listNum) {
 		File f = new File("tracks/" + listNum);
 		tracks = f.list();
-		listPath = f.getAbsolutePath() + "/";
+		listPath = "tracks/" + listNum + "/";
 	}
 
 	/**
@@ -36,9 +36,9 @@ public class PlayList {
 	 */
 	public String getTrackName(int trackNum) {
 		if (trackNum > tracks.length)
-			return tracks[tracks.length - 1];
+			return tracks[tracks.length];
 		else
-			return tracks[trackNum - 1];
+			return tracks[trackNum];
 	}
 
 	/**
