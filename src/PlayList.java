@@ -4,7 +4,6 @@
  * @author	James Moretti
  * @since	July 26, 2014
  */
-import java.util.ArrayList;
 import java.io.File;
 
 public class PlayList {
@@ -37,6 +36,8 @@ public class PlayList {
 	public String getTrackName(int trackNum) {
 		if (trackNum > tracks.length)
 			return tracks[tracks.length];
+		else if (trackNum < 0)
+			return tracks[0];
 		else
 			return tracks[trackNum];
 	}
