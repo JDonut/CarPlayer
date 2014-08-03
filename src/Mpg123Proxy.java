@@ -17,6 +17,8 @@ public class Mpg123Proxy implements Runnable {
 	 * @param	songPath	Relative path to the mp3 file to play.
 	 */
 	public void play(String songPath) {
+		stop(); // Only play one song at a time
+
 		String s = "mpg123 \"" + songPath + "\"";
 		String[] cmd = {"/bin/bash", "-c", s};
 		try {
@@ -27,6 +29,15 @@ public class Mpg123Proxy implements Runnable {
 		}
 	}
 
+	/**
+	 * Stops playing an mp3 by killing the mpg123 process.
+	 */
 	public void stop() {
+		try {
+			syscall.destroy();
+		}
+		catch (Exception e) {
+			// stops compiler whining
+		}
 	}
 }
