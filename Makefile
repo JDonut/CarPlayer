@@ -1,7 +1,10 @@
 SD=src/
 BD=bin/
-CC=javac -d $(BD) -classpath $(SD)
+TD=tests/
+CC=javac -d $(BD)
 
+
+#Project building
 
 all: manifest $(BD)Speaker.class $(BD)PlayList.class $(BD)Player.class $(BD)InputHandler.class
 
@@ -10,6 +13,18 @@ jar: all
 
 manifest: $(BD)manifest.txt
 	echo "Main-Class: InputHandler" > bin/manifest.txt
+
+
+#Tests
+
+$(BD)MpgProxyTest.class: $(TD)MpgProxyTest.java $(SD)Mpg123Proxy.java
+	javac -sourcepath $(SD) -d $(BD) $(TD)MpgProxyTest.java
+
+
+#Individual class compiling
+
+$(BD)Mpg123Proxy.class: $(SD)Mpg123Proxy.java
+	$(CC) $(SD)Mpg123Proxy.java
 
 $(BD)Speaker.class: $(SD)Speaker.java
 	$(CC) $(SD)Speaker.java
@@ -23,6 +38,6 @@ $(BD)Player.class: $(SD)Player.java
 $(BD)InputHandler.class: $(SD)InputHandler.java
 	$(CC) $(SD)InputHandler.java
 
+
 clean:
 	rm bin/*
-
