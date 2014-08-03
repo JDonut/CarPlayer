@@ -1,7 +1,7 @@
 SD=src/
 BD=bin/
 TD=tests/
-CC=javac -d $(BD)
+CC=javac -d $(BD) -sourcepath $(SD)
 
 
 #Project building
@@ -32,8 +32,8 @@ $(BD)Speaker.class: $(SD)Speaker.java
 $(BD)PlayList.class: $(SD)PlayList.java
 	$(CC) $(SD)PlayList.java
 
-$(BD)Player.class: $(SD)Player.java
-	$(CC) $(SD)Player.java
+$(BD)PlayManager.class: $(SD)PlayManager.java
+	$(CC) $(SD)PlayManager.java
 
 $(BD)InputHandler.class: $(SD)InputHandler.java
 	$(CC) $(SD)InputHandler.java
