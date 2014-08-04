@@ -4,14 +4,14 @@
  * @author James Moretti
  * @since July 26, 2014
  */
-public static class Speaker {
+public class Speaker {
 
 	/**
 	* Makes a system call to play the given text using espeak
 	*
 	* @param text the string to be spoken
 	*/
-	public static void speak(String text) {
+	public void speak(String text) {
 		String cmd = "espeak \"" + text + "\" 2> /dev/null";
 		try {
 			Runtime.getRuntime().exec(cmd);
