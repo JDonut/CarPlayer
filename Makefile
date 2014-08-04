@@ -6,12 +6,12 @@ CC=javac -d $(BD) -sourcepath $(SD)
 
 #Project building
 
-all: manifest $(BD)Speaker.class $(BD)PlayList.class $(BD)Player.class $(BD)InputHandler.class $(BD)Runner.class
+all: $(BD)manifest $(BD)Speaker.class $(BD)PlayList.class $(BD)PlayManager.class $(BD)InputHandler.class $(BD)Runner.class
 
 jar: all
 	cd bin; jar cfm ../CarPlayer.jar manifest.txt .
 
-manifest: $(BD)manifest.txt
+$(BD)manifest:
 	echo "Main-Class: Runner" > bin/manifest.txt
 
 
