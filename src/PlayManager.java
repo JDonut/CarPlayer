@@ -26,6 +26,8 @@ public class PlayManager {
 	 * @param	list	PlayList to play
 	 */
 	public void setPlayList(PlayList list) {
+		stop();
+		curTrackNum = 0;
 		curList = list;
 	}
 
@@ -36,7 +38,7 @@ public class PlayManager {
 	 */
 	public void play() {
 		if (curList != null) {
-			player.play(curList.getTrackName(curTrackNum));
+			player.play(curList.getTrackPath(curTrackNum));
 		}
 	}
 
