@@ -6,7 +6,7 @@
  * @since Aug 2, 2014
  */
 public class Mpg123Proxy  {
-	Process syscall;
+	private Process syscall;
 
 	/**
 	 * Makes a system call to play the specified mp3 using mpg123.
