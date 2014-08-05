@@ -42,7 +42,7 @@ public class InputHandler {
 	 * loop will only be terminated when the device loses power.
 	 */
 	public void runInputLoop() {
-		speaker.speak("Awaiting input");
+		speaker.speak("AwaitingInput");
 		Reader reader = System.console().reader();
 
 		// A few of these commands require their exceptions to be caught so
@@ -108,9 +108,12 @@ public class InputHandler {
 					// Turn individual keystrokes into a number
 					int num = Integer.parseInt(playListSelection);
 					playListSelection = ""; // Reset input number
-					playManager.setPlayList(new PlayList(num));
-					playManager.play();
-					mode = InputState.PLAYING;
+
+					if (PlayList.exists(num)) {
+						playManager.setPlayList(new PlayList(num));
+						playManager.play();
+						mode = InputState.PLAYING;
+					}
 				}
 				break;
 			case '.':
