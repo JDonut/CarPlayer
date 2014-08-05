@@ -14,7 +14,7 @@ public class Speaker {
 	public void speak(String text) {
 		String cmd = "espeak \"" + text + "\" 2> /dev/null";
 		try {
-			Runtime.getRuntime().exec(cmd);
+			Runtime.getRuntime().exec(cmd).waitFor();
 		}
 		catch(Exception e){
 			//Compiler whines if we don't catch this exception
