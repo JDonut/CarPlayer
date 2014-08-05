@@ -7,8 +7,20 @@
 import java.io.File;
 
 public class PlayList {
+	private static final String TRACK_DIR = "tracks/";
 	private String[] tracks;
 	private String listPath;
+
+	/**
+	 * Find out if the given play list directory exists.
+	 *
+	 * @param	listNum	list directory to check
+	 * @returns	true if directory exists, false if not.
+	 */
+	public static boolean exists(int listNum) {
+		File f = new File(TRACK_DIR + listNum + "/");
+		return f.exists();
+	}
 
 	public PlayList(int listNum) {
 		tracks = new String[0];
@@ -22,9 +34,9 @@ public class PlayList {
 	 * @param	listNum	Play list to load in
 	 */
 	public void loadPlayList(int listNum) {
-		File f = new File("tracks/" + listNum);
+		File f = new File(TRACK_DIR + listNum);
 		tracks = f.list();
-		listPath = "tracks/" + listNum + "/";
+		listPath = TRACK_DIR + listNum + "/";
 	}
 
 	/**
@@ -35,6 +47,8 @@ public class PlayList {
 	 *			Gets last track if trackNum is out of range.
 	 */
 	public String getTrackPath(int trackNum) {
+		if (tracks.length == 0) return ""; // Return early if empty play list
+
 		if (trackNum > tracks.length - 1)
 			return listPath + tracks[tracks.length - 1];
 		else if (trackNum < 0)
