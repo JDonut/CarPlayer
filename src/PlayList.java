@@ -11,6 +11,7 @@ public class PlayList {
 	private String listPath;
 
 	public PlayList(int listNum) {
+		tracks = new String[0];
 		loadPlayList(listNum);
 	}
 
@@ -33,13 +34,13 @@ public class PlayList {
 	 * @return	Track name that corresponds to trackNum.
 	 *			Gets last track if trackNum is out of range.
 	 */
-	public String getTrackName(int trackNum) {
-		if (trackNum > tracks.length)
-			return tracks[tracks.length];
+	public String getTrackPath(int trackNum) {
+		if (trackNum > tracks.length - 1)
+			return listPath + tracks[tracks.length - 1];
 		else if (trackNum < 0)
-			return tracks[0];
+			return listPath + tracks[0];
 		else
-			return tracks[trackNum];
+			return listPath + tracks[trackNum];
 	}
 
 	/**
@@ -47,12 +48,5 @@ public class PlayList {
 	 */
 	public int size() {
 		return tracks.length;
-	}
-
-	/**
-	 * #return The path to the play list
-	 */
-	public String getListPath() {
-		return listPath;
 	}
 }
