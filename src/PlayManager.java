@@ -72,7 +72,7 @@ public class PlayManager {
 			curTrackNum--;
 
 			if (curTrackNum < 0)
-				curTrackNum = curList.size();
+				curTrackNum = curList.size() - 1;
 
 			play();
 		}
