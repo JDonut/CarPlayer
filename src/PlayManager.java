@@ -34,6 +34,21 @@ public class PlayManager {
 	/**
 	 * Tells our player to start playing the selected track.
 	 *
+	 * @param	track	Track number to play.
+	 */
+	public void play(int track) {
+		if (curList != null) {
+			if (track > curList.size() - 1)
+				track = curList.size() - 1;
+
+			curTrackNum = track;
+			play();
+		}
+	}
+
+	/**
+	 * Tells our player to start playing on whatever the internal track is.
+	 *
 	 * @param	trackNum	Number of the track to play
 	 */
 	public void play() {
@@ -77,3 +92,4 @@ public class PlayManager {
 		}
 	}
 }
+
