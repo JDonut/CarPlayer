@@ -5,6 +5,7 @@
  * @since	July 26, 2014
  */
 import java.io.File;
+import java.util.Arrays;
 
 public class PlayList {
 	private static final String TRACK_DIR = "tracks/";
@@ -37,6 +38,7 @@ public class PlayList {
 		File f = new File(TRACK_DIR + listNum);
 		tracks = f.list();
 		listPath = TRACK_DIR + listNum + "/";
+		Arrays.sort(tracks);
 	}
 
 	/**
