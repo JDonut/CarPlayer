@@ -4,6 +4,11 @@
 public class MpgProxyTest {
 	public static void main(String[] args) {
 		Mpg123Proxy myprox = new Mpg123Proxy();
+
+		if (args.length != 2) {
+			System.out.println("Expecting two different tracks for arguments");
+		}
+
 		System.out.println("File <" + args[0] + ">");
 
 		myprox.stop();
@@ -17,5 +22,6 @@ public class MpgProxyTest {
 		}
 
 		myprox.stop();
+		myprox.play(args[1]);
 	}
 }
