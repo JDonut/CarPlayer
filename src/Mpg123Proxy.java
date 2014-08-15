@@ -7,6 +7,7 @@
  */
 public class Mpg123Proxy  {
 	private volatile Process sysCall;
+	private boolean playing = false;
 
 	/**
 	 * Makes a system call to play the specified mp3 using mpg123.
@@ -32,11 +33,14 @@ public class Mpg123Proxy  {
 				catch (Exception e) {
 					System.out.println("Failed to play <" + trackPath + ">");
 				}
-
-				sysCall = null;
+				finally {
+					sysCall = null;
+					playing = false;
+				}
 			}
 		});
 		t.start();
+		playing = true;
 	}
 
 	/**
@@ -50,15 +54,17 @@ public class Mpg123Proxy  {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		finally {
+			playing = false;
+		}
 	}
 
 	/**
-	 * Checks the status of the mpg123 process to determine whether or not a
-	 * track is playing.
+	 * Reports whether or not a track is playing.
 	 *
 	 * @return	true if track is playing, false if not.
 	 */
 	public boolean isPlaying() {
-		return sysCall != null;
+		return playing;
 	}
 }
