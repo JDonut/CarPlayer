@@ -4,11 +4,12 @@
  * @author James Moretti
  * @since July 26, 2014
  */
-public class PlayManager {
+public class PlayManager implements Runnable {
 	private int curTrackNum;
 	private PlayList curList;
 	private Mpg123Proxy player;
 	private boolean shuffle;
+	private Thread playThread;
 
 	/**
 	 * Constructor for PlayManager. Defaults attributes.
@@ -53,7 +54,28 @@ public class PlayManager {
 	 */
 	public void play() {
 		if (curList != null) {
+			stop(); // Stop current playing
+
+			playThread = new Thread(this);
+			playThread.start();
+		}
+	}
+
+	/**
+	 * The separate thread the track is played in. Allows us to automatically
+	 * continue to the next song when the current song ends.
+	 * Thusly, this method is invoked by calling playThread.start().
+	 */
+	public void run() {
+		while (!playThread.interrupted()) {
 			player.play(curList.getTrackPath(curTrackNum));
+
+			// Wait for current song to stop playing
+			while (player.isPlaying()) {}
+
+			curTrackNum++;
+			if (curTrackNum > curList.size() - 1)
+				curTrackNum = 0;
 		}
 	}
 
@@ -62,6 +84,10 @@ public class PlayManager {
 	 */
 	public void stop() {
 		player.stop();
+		if (playThread != null) {
+			playThread.interrupt();
+			while (playThread.isAlive()) { }
+		}
 	}
 
 	/**
