@@ -49,13 +49,17 @@ public class Mpg123Proxy  {
 	* @returns	true if track is playing, false if not.
 	*/
 	public boolean isPlaying() {
-		try {
-			sysCall.exitValue();
-			return false;
+		if (sysCall != null) {
+			try {
+				sysCall.exitValue();
+				sysCall = null; // Set this to null since we're not playing
+				return false;
+			}
+			catch (IllegalThreadStateException e) {
+				return true;
+			}
 		}
-		catch (IllegalThreadStateException e) {
-			return true;
-		}
+		else return false; // Can't be playing if sysCall is null
 	}
 
 	/**
