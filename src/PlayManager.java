@@ -11,6 +11,7 @@ public class PlayManager implements Runnable {
 	private Mpg123Proxy player;
 	private Thread playThread;
 	private int curTrackNum = 0;
+	private boolean stopped = true;
 	private boolean shuffle = false;
 	private ConcurrentLinkedQueue<Cmd> commands;
 
@@ -30,6 +31,7 @@ public class PlayManager implements Runnable {
 	private class PlayCmd extends Cmd {
 		protected void exec() {
 			player.play(curList.getTrackPath(curTrackNum));
+			stopped = false;
 		}
 	}
 
@@ -38,6 +40,7 @@ public class PlayManager implements Runnable {
 		protected void exec() {
 			player.stop();
 			player.waitFor();
+			stopped = true;
 		}
 	}
 
@@ -83,19 +86,25 @@ public class PlayManager implements Runnable {
 	}
 
 	/**
-	* The separate thread the track is played in.
-	* Thusly, this method is invoked by calling playThread.start().
+	* The separate thread the track is played in. Processes all of the
+	* commands in the command queue and automatically plays the next track
+	* in the playlist when the current track ends.
+	* This method is invoked by calling playThread.start().
 	*/
 	public void run() {
+		Cmd curCmd;
 		while (!playThread.interrupted()) {
-			Cmd curCmd = commands.poll();
-			if (curCmd != null) {
-				System.out.println("Ate cmd " + curCmd);
+
+			// Process all current commands
+			while((curCmd = commands.poll()) != null)
 				curCmd.exec();
+
+			// Continue to next song when current song ends
+			if (!player.isPlaying() && !stopped) {
+				commands.add(new NextCmd());
+				commands.add(new PlayCmd());
 			}
 		}
-
-		System.out.println("Thread " + Thread.currentThread() + " ending");
 	}
 
 	/**
@@ -106,6 +115,7 @@ public class PlayManager implements Runnable {
 	public void setPlayList(PlayList list) {
 		commands = new ConcurrentLinkedQueue<Cmd>();
 		player.stop();
+		stopped = true;
 		curTrackNum = 0;
 		curList = list;
 	}
@@ -117,6 +127,7 @@ public class PlayManager implements Runnable {
 	public void shutdown() {
 		playThread.interrupt();
 		player.stop();
+		stopped = true;
 	}
 
 	/**
