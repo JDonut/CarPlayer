@@ -15,13 +15,22 @@ public class MpgProxyTest {
 		myprox.play(args[0]);
 
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(3000);
 		}
 		catch (Exception e) {
-			//stop compiler whining
+			e.printStackTrace();
 		}
 
 		myprox.stop();
 		myprox.play(args[1]);
+
+		try {
+			Thread.sleep(3000);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		myprox.stop();
 	}
 }
