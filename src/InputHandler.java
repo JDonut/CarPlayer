@@ -1,9 +1,9 @@
 /**
- * As the name implies, processes input from the keypad.
- *
- * @author James Moretti
- * @since July 26, 2014
- */
+* As the name implies, processes input from the keypad.
+*
+* @author James Moretti
+* @since July 26, 2014
+*/
 import java.io.Reader;
 
 public class InputHandler {
@@ -18,6 +18,7 @@ public class InputHandler {
 	private final String[] TO_COOKED = {"/bin/bash", "-c", "stty cooked </dev/tty"};
 	private final String QUIT_STRING = "quit";
 
+	// Fields
 	private PlayManager playManager;
 	private Speaker speaker;
 	private InputState mode;
@@ -26,8 +27,8 @@ public class InputHandler {
 	private String playListSelection = "";
 
 	/**
-	 * Constructor for InputHandler. Just initializes some objects.
-	 */
+	* Constructor for InputHandler. Just initializes some objects.
+	*/
 	public InputHandler() {
 		playManager = new PlayManager();
 		speaker = new Speaker();
@@ -36,11 +37,11 @@ public class InputHandler {
 	}
 
 	/**
-	 * Puts the console in raw mode and continually polls for input until
-	 * the quit string has been typed in. Since the target platform is a
-	 * Raspberry pi with a number pad for input, under normal operation this
-	 * loop will only be terminated when the device loses power.
-	 */
+	* Puts the console in raw mode and continually polls for input until
+	* the quit string has been typed in. Since the target platform is a
+	* Raspberry pi with a number pad for input, under normal operation this
+	* loop will only be terminated when the device loses power.
+	*/
 	public void runInputLoop() {
 		speaker.speak("AwaitingInput");
 		Reader reader = System.console().reader();
@@ -77,12 +78,11 @@ public class InputHandler {
 	}
 
 	/**
-	 * Checks to see if each character of the quit string has been typed
-	 * consecutively, in order. Keeps a running count of how many characters
-	 * have been matched. Sets it back to 0 if a character doesn't match.
-	 *
-	 * @param	c	character to check.
-	 */
+	* Checks to see if each character of the quit string has been typed
+	* consecutively, in order. Keeps a running count of how many characters
+	* have been matched. Sets it back to 0 if a character doesn't match.
+	* @param	c - Character to check.
+	*/
 	private void checkKillString(char c) {
 		if (c == QUIT_STRING.charAt(bufpos)) {
 			quitStringBuffer[bufpos] = c;
@@ -92,11 +92,10 @@ public class InputHandler {
 	}
 
 	/**
-	 * Checks the given character against a list of commands.
-	 * Executes matched command.
-	 *
-	 * @param	c	character to process.
-	 */
+	* Checks the given character against a list of commands.
+	* Executes matched command.
+	* @param	c - Character to process.
+	*/
 	private void processInput(char c) {
 		// This is really bad. I'm sorry.
 		switch (c) {
@@ -136,10 +135,10 @@ public class InputHandler {
 	}
 
 	/**
-	 * Checks if a the given character is a digit.
-	 * @param	c	character to test.
-	 * @return	true is character is a digit, false if not.
-	 */
+	* Checks if a the given character is a digit.
+	* @param	c - Character to test.
+	* @return	true if character is a digit, false if not.
+	*/
 	private boolean charIsDigit(char c) {
 		return c == '0' || c == '1' || c == '2' || c == '3' || c == '4' ||
 				c == '5' || c == '6' || c == '7' || c == '8' || c == '9';

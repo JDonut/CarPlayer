@@ -1,9 +1,9 @@
 /**
- * Responsible for playing tracks from a PlayList.
- *
- * @author James Moretti
- * @since July 26, 2014
- */
+* Responsible for playing tracks from a PlayList.
+*
+* @author James Moretti
+* @since July 26, 2014
+*/
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class PlayManager implements Runnable {

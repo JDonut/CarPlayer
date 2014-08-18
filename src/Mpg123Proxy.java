@@ -1,10 +1,10 @@
 /**
- * Provides a proxy for the system calls required to mp3s using mpg123.
- * Obviously using this makes your program dependant on linux and mpg123.
- *
- * @author	James Moretti
- * @since Aug 2, 2014
- */
+* Provides a proxy for the system calls required to mp3s using mpg123.
+* Obviously using this makes your program dependant on linux and mpg123.
+*
+* @author	James Moretti
+* @since Aug 2, 2014
+*/
 public class Mpg123Proxy  {
 	private Process sysCall;
 
@@ -21,7 +21,7 @@ public class Mpg123Proxy  {
 			sysCall = Runtime.getRuntime().exec(cmd);
 		}
 		catch (Exception e) {
-			System.out.println("Failed to play <" + trackPath + ">");
+			System.err.println("Failed to play <" + trackPath + ">");
 		}
 	}
 
@@ -34,7 +34,7 @@ public class Mpg123Proxy  {
 				sysCall.destroy();
 		}
 		catch (Exception e) {
-			System.out.println("Mpg123Proxy broke while stopping track");
+			System.err.println("Mpg123Proxy broke while stopping track");
 			e.printStackTrace();
 		}
 		finally {
@@ -46,7 +46,7 @@ public class Mpg123Proxy  {
 	* Reports whether or not a track is playing. Does not check if track
 	* ended naturally. Only checks for manual stop.
 	*
-	* @returns	true if track is playing, false if not.
+	* @return	true if track is playing, false if not.
 	*/
 	public boolean isPlaying() {
 		if (sysCall != null) {
@@ -72,7 +72,7 @@ public class Mpg123Proxy  {
 				sysCall.waitFor();
 			}
 			catch (Exception e) {
-				System.out.println("Mpg123Proxy external waitFor broke");
+				System.err.println("Mpg123Proxy external waitFor broke");
 				e.printStackTrace();
 			}
 		}
