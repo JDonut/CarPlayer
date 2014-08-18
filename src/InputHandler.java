@@ -58,7 +58,7 @@ public class InputHandler {
 				checkKillString(curchar);
 				processInput(curchar);
 			}
-			playManager.stop();
+			playManager.shutdown();
 		}
 		catch (Exception e) {
 			System.err.println("Main loop done broked");
